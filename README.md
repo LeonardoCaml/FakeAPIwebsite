@@ -2,4 +2,4 @@
 
 Siga a documentação oficial da fake api para instruir os novos usuários de forma mais dinâmica.
 
-Você pode acessar o site pelo link a seguir: [documentação oficial](http://localhost:3000).
+Você pode acessar o site pelo link a seguir: [documentação oficial](https://fake-ap-iwebsite.vercel.app/).

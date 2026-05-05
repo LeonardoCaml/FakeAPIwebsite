@@ -40,7 +40,7 @@ export function Sidebar() {
                     <Link
                       href={item.href}
                       className={cn(
-                        "block px-3 py-2 text-sm rounded-lg transition-all duration-200",
+                        "block px-3 py-2 text-sm transition-all duration-200",
                         isActive
                           ? "bg-blue-50 text-blue-700 font-semibold border-r-2 border-blue-600"
                           : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",

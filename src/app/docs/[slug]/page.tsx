@@ -17,7 +17,6 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function EndpointPage({ params }: PageProps) {
-  // 3. Aguarde (await) a resolução dos params
   const { slug } = await params;
 
   const data = ENDPOINTS_DATA[slug];
@@ -28,7 +27,6 @@ export default async function EndpointPage({ params }: PageProps) {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-      {/* Header do Endpoint */}
       <header className="space-y-4">
         <div className="flex items-center gap-3 mb-4">
           <span
@@ -57,7 +55,6 @@ export default async function EndpointPage({ params }: PageProps) {
 
       <hr className="border-slate-100" />
 
-      {/* Exemplo de Resposta */}
       <section className="space-y-4">
         <h2 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
           <Terminal size={20} className="text-slate-400" />
@@ -75,35 +72,39 @@ export default async function EndpointPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Tabela de Parâmetros (Opcional) */}
       <section className="space-y-4 pt-4">
         <h2 className="text-xl font-semibold text-slate-900">Parâmetros</h2>
-        <div className="border border-slate-100 rounded-xl overflow-hidden">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-slate-50 border-b border-slate-100 text-slate-500 uppercase text-[10px] tracking-widest font-bold">
-              <tr>
-                <th className="px-6 py-4">Nome</th>
-                <th className="px-6 py-4">Tipo</th>
-                <th className="px-6 py-4">Descrição</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              <tr>
-                <td className="px-6 py-4 font-mono text-blue-600">api_key</td>
-                <td className="px-6 py-4 text-slate-400 italic">string</td>
-                <td className="px-6 py-4 text-slate-600 text-xs">
-                  Sua chave de acesso obrigatória.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {data.params && data.params.length > 0 ? (
+          <div className="border border-slate-100 rounded-xl overflow-hidden">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-slate-50 border-b border-slate-100 text-slate-500 uppercase text-[10px] tracking-widest font-bold">
+                <tr>
+                  <th className="px-6 py-4">Nome</th>
+                  <th className="px-6 py-4">Tipo</th>
+                  <th className="px-6 py-4">Obrigatório</th>
+                  <th className="px-6 py-4">Descrição</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {data.params.map((p: { name: string; type: string; required: boolean; desc: string }) => (
+                  <tr key={p.name}>
+                    <td className="px-6 py-4 font-mono text-blue-600">{p.name}</td>
+                    <td className="px-6 py-4 text-slate-400 italic">{p.type}</td>
+                    <td className="px-6 py-4 text-slate-500">{p.required ? "Sim" : "Não"}</td>
+                    <td className="px-6 py-4 text-slate-600 text-xs">{p.desc}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="text-slate-400 text-sm italic">Nenhum parâmetro adicional.</p>
+        )}
       </section>
     </div>
   );
 }
 
-// Helper para o Tailwind (adicione ao seu arquivo se não tiver)
 function cn(...inputs: any) {
   return inputs.filter(Boolean).join(" ");
 }

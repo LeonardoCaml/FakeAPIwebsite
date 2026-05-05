@@ -22,9 +22,13 @@ export default function ErrorsPage() {
         <div className="bg-[#0f172a] rounded-xl p-6 border border-slate-800 shadow-xl">
           <code className="text-sm font-mono block">
             <p className="text-white">{"{"}</p>
-            <p className="pl-4 text-pink-400">"error": <span className="text-emerald-400">true</span>,</p>
-            <p className="pl-4 text-pink-400">"code": <span className="text-yellow-400">"invalid_parameter"</span>,</p>
-            <p className="pl-4 text-pink-400">"message": <span className="text-slate-300">"O campo 'email' é obrigatório."</span></p>
+            <p className="pl-4 text-pink-400">"error": <span className="text-emerald-400">"Falha na validação dos dados"</span>,</p>
+            <p className="pl-4 text-pink-400">"details": <span className="text-white">[</span></p>
+            <p className="pl-8 text-white">{"{"}</p>
+            <p className="pl-12 text-pink-400">"field": <span className="text-yellow-400">"username"</span>,</p>
+            <p className="pl-12 text-pink-400">"message": <span className="text-slate-300">"Mínimo 3 caracteres"</span></p>
+            <p className="pl-8 text-white">{"}"}</p>
+            <p className="pl-4 text-white">{"]"}</p>
             <p className="text-white">{"}"}</p>
           </code>
         </div>
@@ -32,10 +36,10 @@ export default function ErrorsPage() {
 
       {/* Grid de Códigos Comuns */}
       <div className="grid sm:grid-cols-2 gap-4">
-        <ErrorCard code="400" title="Bad Request" desc="A requisição estava mal formatada ou faltam parâmetros." />
-        <ErrorCard code="429" title="Too Many Requests" desc="Você atingiu o limite de requisições. Tente novamente em breve." />
-        <ErrorCard code="500" title="Server Error" desc="Algo deu errado do nosso lado. Estamos trabalhando nisso." />
-        <ErrorCard code="503" title="Service Unavailable" desc="O servidor está em manutenção temporária." />
+        <ErrorCard code="400" title="Bad Request" desc="Dados inválidos — campo obrigatório ausente ou fora dos limites de validação (Zod)." />
+        <ErrorCard code="404" title="Not Found" desc="Recurso não encontrado. Ex.: username ou ID inexistente." />
+        <ErrorCard code="500" title="Server Error" desc="Algo deu errado no servidor. Tente novamente mais tarde." />
+        <ErrorCard code="204" title="No Content" desc="Operação concluída com sucesso, sem corpo de resposta (DELETE)." />
       </div>
     </div>
   );

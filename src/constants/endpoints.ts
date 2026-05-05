@@ -1,115 +1,211 @@
 export const ENDPOINTS_DATA: Record<string, any> = {
-  create: {
-    title: "Criar uma Conta",
-    description:
-      "Para utilizar todas as rotas privadas da API, é necessário criar uma conta na rota /POST e obter o token de acesso gerado.",
-    alert:
-      "Guarde esse token para usar no header da sua requisição toda vez que for acessar uma rota privada",
-    method: "POST",
-    path: "https://fake-social-media-api.onrender.com/register",
-    exampleResponse: `{
-      "name": "Seu Nome",
-      "username": "seu_usuario",
-      "email": "teste@email.com",
-      "password": "senha_segura_123",
-      "displayName": "Seu Nome Exibição"
-    }`,
-  },
-  login: {
-    title: "Realizar Login",
-    description:
-      "Agora que sua conta foi criada, precisamos logar nela para que todas as rotas privadas da API possam ser acessadas. Por meio da rota /POST, insira o email e o token gerado no passo anterior.",
-    method: "POST",
-    path: "https://fake-social-media-api.onrender.com/login",
-    exampleResponse: `
-    {
-      "email": "teste@email.com",
-      "password": "senha_segura_123"
-    }
-
-    ------ resposta do servidor ------
-
-    {
-      "message": "Login realizado!",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-      "user": {
-        "id": "65b2f...",
-        "username": "leonardo_dev"
-      }
-    }
-    `,
-  },
-  aplicatte: {
-    title: "Como usar o Token (Bearer Token)",
-    alert:
-      "Se você não enviar o token ou ele estiver expirado, a API retornará um erro 401 Unauthorized.",
-    description:
-      "Para acessar rotas como /feed ou /users, você deve incluir o token no cabeçalho de todas as requisições HTTP:",
-    method: "POST",
-    path: "https://fake-social-media-api.onrender.com/{feed or users}",
-    exampleResponse: `
-    {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer token",
-    }`,
-  },
   users: {
-    title: "Usuários",
+    title: "Listar Usuários",
     description:
-      "A Lista de usuários permite visualizar todos os usuários cadastrados no sistema, organizando-os de forma dinâmica com a implementação de paginação e busca. Você também pode utilizar filtros e paginação para deixar a busca mais dinâmica",
+      "Retorna todos os usuários cadastrados com suporte a paginação e busca. Use o parâmetro search para filtrar por username ou displayName.",
     method: "GET",
     path: "https://fake-social-media-api.onrender.com/users",
+    exampleResponse: `[
+  {
+    "id": "6979259b8df745b62e1af58c",
+    "username": "briana.cummerata78",
+    "email": "briana@yahoo.com",
+    "displayName": "Briana Cummerata",
+    "bio": "Voro patrocinor condico.",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/91331020",
+    "createdAt": "2025-08-29T11:51:20.862Z"
+  }
+  // ... outros usuários
+]`,
+    params: [
+      { name: "page", type: "integer", required: false, desc: "Número da página (padrão: 1)" },
+      { name: "limit", type: "integer", required: false, desc: "Itens por página (padrão: 10)" },
+      { name: "search", type: "string", required: false, desc: "Filtra por username ou displayName" },
+    ],
+  },
+  "user-profile": {
+    title: "Perfil do Usuário",
+    description:
+      "Retorna o perfil completo de um usuário pelo username, incluindo bio, avatar, contagem de seguidores/seguindo e os posts mais recentes.",
+    method: "GET",
+    path: "https://fake-social-media-api.onrender.com/users/:username",
     exampleResponse: `{
-  id: '6979259b8df745b62e1af58c',
-  username: 'briana.cummerata78',
-  email: 'Briana.Cummerata51@yahoo.com',
-  password: 'password123',
-  displayName: 'Briana Cummerata',
-  bio: 'Voro patrocinor condico.',
-  avatarUrl: 'https://avatars.githubusercontent.com/u/91331020',
-  createdAt: '2025-08-29T11:51:20.862Z'
+  "id": "6979259b8df745b62e1af58c",
+  "username": "leonardo_dev",
+  "displayName": "Leo Camelo",
+  "bio": "Desenvolvedor full stack.",
+  "avatarUrl": "https://example.com/avatar.jpg",
+  "createdAt": "2026-03-30T...",
+  "_count": { "followers": 42, "following": 17 },
+  "posts": [
+    { "id": "...", "content": "...", "createdAt": "..." }
+  ]
 }`,
+    params: [
+      { name: "username", type: "string", required: true, desc: "Username do usuário (parâmetro de rota)" },
+    ],
+  },
+  "create-user": {
+    title: "Criar Usuário",
+    description:
+      "Cadastra um novo usuário. O username deve ter entre 3 e 20 caracteres. O e-mail deve ser válido e único. O displayName é opcional (mínimo 2 caracteres).",
+    method: "POST",
+    path: "https://fake-social-media-api.onrender.com/users",
+    exampleResponse: `// Corpo da requisição:
+{
+  "username": "leonardo_dev",
+  "email": "leo@email.com",
+  "displayName": "Leo Camelo"
+}
+
+// Resposta (201):
+{
+  "message": "Usuário criado com sucesso!",
+  "user": {
+    "id": "65b2f...",
+    "username": "leonardo_dev",
+    "email": "leo@email.com",
+    "displayName": "Leo Camelo",
+    "createdAt": "2026-03-30T..."
+  }
+}`,
+    params: [
+      { name: "username", type: "string", required: true, desc: "Mínimo 3 e máximo 20 caracteres. Deve ser único." },
+      { name: "email", type: "string", required: true, desc: "E-mail válido. Deve ser único." },
+      { name: "displayName", type: "string", required: false, desc: "Nome de exibição. Mínimo 2 caracteres." },
+    ],
+  },
+  "update-user": {
+    title: "Atualizar Usuário",
+    description:
+      "Atualiza dados de perfil. Apenas displayName, bio e avatarUrl são aceitos. Campos como email, username e password são ignorados pela validação.",
+    method: "PUT",
+    path: "https://fake-social-media-api.onrender.com/users/:id",
+    exampleResponse: `// Corpo da requisição:
+{
+  "displayName": "Leo Camelo",
+  "bio": "Desenvolvedor full stack.",
+  "avatarUrl": "https://example.com/avatar.jpg"
+}
+
+// Resposta (200):
+{
+  "id": "65b2f...",
+  "displayName": "Leo Camelo",
+  "bio": "Desenvolvedor full stack.",
+  "avatarUrl": "https://example.com/avatar.jpg"
+}`,
+    params: [
+      { name: "id", type: "string", required: true, desc: "ID do usuário (parâmetro de rota)" },
+      { name: "displayName", type: "string", required: false, desc: "Mínimo 2 caracteres." },
+      { name: "bio", type: "string", required: false, desc: "Máximo 160 caracteres." },
+      { name: "avatarUrl", type: "string (URL)", required: false, desc: "URL válida da imagem de avatar." },
+    ],
+  },
+  "delete-user": {
+    title: "Deletar Usuário",
+    description:
+      "Remove a conta do usuário e todos os dados vinculados (posts e follows). Retorna 204 sem corpo.",
+    method: "DELETE",
+    path: "https://fake-social-media-api.onrender.com/users/:id",
+    exampleResponse: `// Nenhum corpo necessário.
+// Resposta: 204 No Content`,
+    params: [
+      { name: "id", type: "string", required: true, desc: "ID do usuário (parâmetro de rota)" },
+    ],
   },
   feed: {
     title: "Feed Global",
     description:
-      "Retorna o feed personalizado (apenas de quem o seu usuário segue)",
+      "Retorna todos os posts de todos os usuários, ordenados pelo mais recente primeiro.",
     method: "GET",
     path: "https://fake-social-media-api.onrender.com/posts",
-    exampleResponse: `{
-  "status": "success",
-  "message": "Produto criado com sucesso"
-}`,
-  },
-  interagir: {
-    title: "Interagir (Seguir e Ver Feed Próprio)",
-    description:
-      "Agora o sistema profissional brilha. Vamos seguir alguém e ver como o feed muda. Os usuários podem notar como seu fluxo de informações se altera com a inclusão de novas postagens das pessoas que estão seguindo.",
-    method: "POST",
-    path: "https://fake-social-media-api.onrender.com/follow",
-    exampleResponse: `{
-  "followerId": "SEU_ID", 
-  "followingId": "ID_DE_ALGUEM_DA_LISTA"
-}`,
-  },
-  personalizeFeed: {
-    title: "Ver seu Feed Personalizado",
-    description: "Esta rota só mostra posts de quem você segue.",
-    method: "GET",
-    path: "https://fake-social-media-api.onrender.com/feed/SEU_ID",
-    exampleResponse: `{
+    exampleResponse: `[
+  {
     "id": "6979259b8df745b62e1af59f",
-    "content": "CONTEUDO_DA_POSTAGEM",
-    "imageUrl": "https://picsum.photos/seed/FLsuSrdNTz/134/3717",
-    "createdAt": "2099-99-99T20:46:59.742Z",
+    "content": "Meu primeiro post na rede!",
+    "createdAt": "2026-05-01T20:46:59.742Z",
     "authorId": "6979259b8df745b62e1af532",
     "author": {
-      "username": "NOME_DO_USUARIO",
-      "displayName": "NOME DO USUARIO"
+      "username": "leonardo_dev",
+      "displayName": "Leo Camelo"
     }
   }
-  
-  // outros posts...,`,
+  // ... outros posts
+]`,
+    params: [],
+  },
+  "create-post": {
+    title: "Criar Post",
+    description:
+      "Cria um novo post vinculado a um usuário existente. O conteúdo pode ter no máximo 280 caracteres.",
+    method: "POST",
+    path: "https://fake-social-media-api.onrender.com/posts",
+    exampleResponse: `// Corpo da requisição:
+{
+  "content": "Meu primeiro post na rede!",
+  "authorId": "65b2f..."
+}
+
+// Resposta (201):
+{
+  "id": "...",
+  "content": "Meu primeiro post na rede!",
+  "createdAt": "2026-05-01T...",
+  "authorId": "65b2f...",
+  "author": {
+    "username": "leonardo_dev",
+    "displayName": "Leo Camelo"
+  }
+}`,
+    params: [
+      { name: "content", type: "string", required: true, desc: "Texto do post. Mínimo 1 e máximo 280 caracteres." },
+      { name: "authorId", type: "string", required: true, desc: "ID do usuário autor do post." },
+    ],
+  },
+  follow: {
+    title: "Seguir Usuário",
+    description:
+      "Cria um vínculo de seguidor entre dois usuários. Não é possível seguir o mesmo usuário duas vezes.",
+    method: "POST",
+    path: "https://fake-social-media-api.onrender.com/follow",
+    exampleResponse: `// Corpo da requisição:
+{
+  "followerId": "SEU_ID",
+  "followingId": "ID_DE_QUEM_SEGUIR"
+}
+
+// Resposta (201):
+{
+  "followerId": "...",
+  "followingId": "..."
+}`,
+    params: [
+      { name: "followerId", type: "string", required: true, desc: "ID do usuário que vai seguir." },
+      { name: "followingId", type: "string", required: true, desc: "ID do usuário a ser seguido." },
+    ],
+  },
+  "personalize-feed": {
+    title: "Feed Personalizado",
+    description:
+      "Retorna apenas posts de usuários que o userId segue, ordenados pelo mais recente.",
+    method: "GET",
+    path: "https://fake-social-media-api.onrender.com/feed/:userId",
+    exampleResponse: `[
+  {
+    "id": "6979259b8df745b62e1af59f",
+    "content": "Post de alguém que você segue",
+    "createdAt": "2026-05-01T20:46:59.742Z",
+    "authorId": "...",
+    "author": {
+      "username": "amigo_dev",
+      "displayName": "Amigo Dev"
+    }
+  }
+  // ... outros posts
+]`,
+    params: [
+      { name: "userId", type: "string", required: true, desc: "ID do usuário cujo feed personalizado será retornado (parâmetro de rota)" },
+    ],
   },
 };

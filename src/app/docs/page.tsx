@@ -11,8 +11,9 @@ export default function IntroductionPage() {
         </h1>
         <p className="text-lg text-slate-600 leading-relaxed">
           Bem-vindo à documentação oficial da{" "}
-          <strong>Fake Social Network API</strong>. Aprenda como integrar nossa
-          poderosa infraestrutura em sua aplicação com facilidade e segurança.
+          <strong>Fake Social Network API</strong>. Aprenda como consumir todos
+          os recursos disponíveis e integre dados realistas de rede social na
+          sua aplicação em minutos.
         </p>
       </header>
 
@@ -24,26 +25,26 @@ export default function IntroductionPage() {
           O que é a nossa API?
         </h2>
         <p className="text-slate-600 text-lg leading-relaxed">
-          Nossa API foi desenhada para desenvolvedores iniciantes que precisam
-          de alta escalabilidade, ou na prática, uma base de dados consolidada
-          para interagir com sua aplicação. Voltada pra interfaces de rede
-          social, utilizamos o padrão REST com respostas em formato JSON,
-          garantindo compatibilidade com praticamente qualquer linguagem de
-          programação moderna.
+          A Fake Social Network API foi criada para desenvolvedores que precisam
+          de dados realistas de rede social para testar componentes, fluxos e
+          estados de carregamento. Construída com Node.js, Express e Prisma
+          sobre MongoDB, ela expõe usuários, posts e conexões sociais via REST
+          com respostas em JSON.{" "}
+          <strong>Todas as rotas são abertas — nenhuma autenticação é necessária.</strong>
         </p>
       </section>
 
       {/* Cards de Navegação Rápida */}
       <div className="grid md:grid-cols-2 gap-6">
         <QuickLink
-          title="Autenticação"
-          description="Saiba como gerar e usar suas chaves de API com segurança."
+          title="Acesso à API"
+          description="Entenda como a API funciona e como fazer sua primeira requisição."
           href="/docs/auth"
           icon={<Terminal size={20} />}
         />
         <QuickLink
           title="Endpoints"
-          description="Explore todos os recursos e dados disponíveis para consumo."
+          description="Explore todos os recursos: usuários, posts, feed e social."
           href="/docs/users"
           icon={<Code size={20} />}
         />
@@ -64,12 +65,13 @@ export default function IntroductionPage() {
           Próximos passos
         </h2>
         <p className="text-slate-600 text-lg">
-          Para começar a fazer requisições, você precisará de uma chave de API
-          válida. Siga para a seção de autenticação para entender o processo.
+          Como todas as rotas são abertas, você já pode fazer requisições
+          diretamente. Veja a seção de Acesso à API para exemplos práticos e
+          entenda o formato das respostas.
         </p>
         <Link href="/docs/auth">
           <button className="flex items-center gap-2 text-blue-600 text-lg font-medium hover:underline group">
-            Configurar Autenticação{" "}
+            Ver exemplos de uso{" "}
             <ArrowRight
               size={18}
               className="group-hover:translate-x-1 transition-transform"

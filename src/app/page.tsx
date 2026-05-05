@@ -1,12 +1,8 @@
 import Link from "next/link";
-import {
-  Github,
-  BookOpen,
-  Zap,
-  Shield,
-  Globe,
-  ChevronRight,
-} from "lucide-react";
+import { Github, BookOpen, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import builder from "@/app/assets/Site Builder 2.svg";
+import conversation from "@/app/assets/Testimonial 1.svg";
 
 function FeatureCard({
   icon,
@@ -90,72 +86,28 @@ export default function HomePage() {
 
         {/* Lado Direito: Preview de Código */}
         <div className="flex-1 w-full max-w-md">
-          <div className="bg-slate-900 rounded-2xl p-6 shadow-2xl border border-slate-800 transform rotate-2">
-            <div className="flex gap-2 mb-4">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <div className="w-3 h-3 rounded-full bg-green-500" />
-            </div>
-            <code className="text-sm sm:text-base font-mono leading-relaxed">
-              <p className="text-pink-400">const</p>
-              <p className="text-white">
-                {" "}
-                response = <span className="text-pink-400">await</span> fetch(
-              </p>
-              <p className="text-yellow-200"> 'https://fake-social-media-api.onrender.com'</p>
-              <p className="text-white">);</p>
-              <p className="text-blue-400 mt-2">// Retorno imediato</p>
-              <p className="text-white">{'{ "status": "success" }'}</p>
-            </code>
+          <div>
+            <Image src={builder} alt="Art" />
           </div>
         </div>
       </main>
 
-      <section className="bg-slate-50 py-24 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 text-center mb-16">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Por que escolher nossa API?
-          </h2>
+      <section className="py-24 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12 px-6">
+        <div>
+          <Image src={conversation} alt="conversation" className="w-lg" />
         </div>
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
-          <FeatureCard
-            icon={<Zap className="text-blue-600" />}
-            title="Alta Performance"
-            desc="Latência mínima com infraestrutura distribuída globalmente."
-          />
-          <FeatureCard
-            icon={<Shield className="text-blue-600" />}
-            title="Segurança Máxima"
-            desc="Autenticação robusta e proteção contra ataques DDoS nativa."
-          />
-          <FeatureCard
-            icon={<Globe className="text-blue-600" />}
-            title="Sempre Online"
-            desc="SLA de 99.9% garantido para que você nunca perca uma requisição."
-          />
-        </div>
-      </section>
-
-      <section className="py-24 max-w-5xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold mb-16 text-slate-900">
-          Integração Relâmpago
-        </h2>
-        <div className="flex flex-col md:flex-row justify-between items-start gap-12 relative">
-          <Step
-            number="1"
-            title="Crie sua conta"
-            desc="Acesse o portal e gere suas credenciais em segundos."
-          />
-          <Step
-            number="2"
-            title="Configure a Key"
-            desc="Adicione sua API Key no seu ambiente de desenvolvimento."
-          />
-          <Step
-            number="3"
-            title="Lance em Prod"
-            desc="Tudo pronto! Sua aplicação agora tem superpoderes."
-          />
+        <div className="text-center md:text-end space-y-4">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
+            Começe a criar <span className="text-blue-600">agora mesmo!</span>
+          </h1>
+          <p className="text-lg text-slate-600">
+            Está procurando dados simples para poder colocar na sua aplicação e
+            simular uma rede social robusta? Pois agora você encontrou! A{" "}
+            <strong>Fake Social Media API</strong> é 100% gratuita e fácil de
+            usar, não é necessário fazer nenhuma autenticação. Não perca tempo,
+            comece a integrar nossa API hoje mesmo e veja os resultados
+            imediatamente.
+          </p>
         </div>
       </section>
 

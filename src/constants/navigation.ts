@@ -3,31 +3,38 @@ export const DOCS_NAVIGATION = [
     title: "Começando",
     items: [
       { title: "Introdução", href: "/docs" },
-      { title: "Autenticação", href: "/docs/auth" },
-      { title: "Erros", href: "/docs/errors" }, // Nova!
+      { title: "Acesso à API", href: "/docs/auth" },
+      { title: "Erros", href: "/docs/errors" },
     ],
   },
   {
-    title: "Endpoints Públicos",
+    title: "Usuários",
     items: [
-      { title: "Criar uma Conta", href: "/docs/create" },
-      { title: "Realizar Login", href: "/docs/login" },
-      { title: "Como usar o Token", href: "/docs/aplicatte" },
+      { title: "Listar Usuários", href: "/docs/users" },
+      { title: "Perfil do Usuário", href: "/docs/user-profile" },
+      { title: "Criar Usuário", href: "/docs/create-user" },
+      { title: "Atualizar Usuário", href: "/docs/update-user" },
+      { title: "Deletar Usuário", href: "/docs/delete-user" },
     ],
   },
   {
-    title: "Endpoints Privados",
+    title: "Posts",
     items: [
-      { title: "Usuários", href: "/docs/users" },
       { title: "Feed Global", href: "/docs/feed" },
-      { title: "Interagir", href: "/docs/interagir" },
-      { title: "Feed Personalizado", href: "/docs/personalizeFeed" },
+      { title: "Criar Post", href: "/docs/create-post" },
+    ],
+  },
+  {
+    title: "Social",
+    items: [
+      { title: "Seguir Usuário", href: "/docs/follow" },
+      { title: "Feed Personalizado", href: "/docs/personalize-feed" },
     ],
   },
   {
     title: "Comunidade",
     items: [
-      { title: "Suporte", href: "/docs/support" }, // Nova!
+      { title: "Suporte", href: "/docs/support" },
     ],
   },
 ];

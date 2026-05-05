@@ -47,7 +47,7 @@ export default function SupportPage() {
           <div>
             <h3 className="font-bold text-slate-900">E-mail de Suporte</h3>
             <p className="text-sm text-slate-500 font-mono">
-              suporte@fakeapiweb.com
+              leonardocamelo20@gmail.com
             </p>
           </div>
         </div>
